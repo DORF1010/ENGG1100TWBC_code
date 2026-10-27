@@ -6,8 +6,8 @@
 #define ECHO_PIN 6
 #define SOUND_PIN 7
 #define SERVO_PIN 9
-#define LED2_PIN 12
-#define LED1_PIN 13
+// #define LED2_PIN 12
+// #define LED1_PIN 13
 #define SECONDS 1000
 
 const int middleOfBlinkTime = 75;
