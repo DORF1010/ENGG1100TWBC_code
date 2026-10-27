@@ -1,19 +1,23 @@
 #include <Servo.h>
 
+// enA, in1A, in2A are for motor movement and custom motor controller
 #define enA 3
 #define in1A 4
 #define in2A 5
+// ECns are for ultrasonic sensor (not yet implementd, will be on final design)
 #define ECHO_PIN 6
 #define SOUND_PIN 7
 #define SERVO_PIN 9
+// LED's
 // #define LED2_PIN 12
 // #define LED1_PIN 13
+// Implroves redability of delay(); (see uses)
 #define SECONDS 1000
 
 const int middleOfBlinkTime = 75;
 const int waitingTimeMS = 750;
 
-Servo dumpingServo;
+Servo dumpingServo; // the servo motor object
 
 // Starts moving the motor forward at given speed (must be positive value)
 // If no speed given, defaults to 100%
@@ -29,6 +33,7 @@ void movementReverse(float speed=1) {
     analogWrite(in2A, speed);
 }
 
+// Stops powering the motors, alowing the wheelchair to roll to a stop
 void movementCoast() {
     digitalWrite(in1A, LOW);
     digitalWrite(in2A, LOW);
