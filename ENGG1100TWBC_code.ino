@@ -1,16 +1,16 @@
 #include <Servo.h>
 
 // enA, in1A, in2A are for motor movement and custom motor controller
-#define enA 3
-#define in1A 4
-#define in2A 5
+#define enA 9
+#define in1A 2
+#define in2A 3
 // ECns are for ultrasonic sensor (not yet implementd, will be on final design)
 #define ECHO_PIN 6
 #define SOUND_PIN 7
 #define SERVO_PIN 9
 // LED's
-// #define LED2_PIN 12
-// #define LED1_PIN 13
+#define LED2_PIN 12
+#define LED1_PIN 13
 // Implroves redability of delay(); (see uses)
 #define SECONDS 1000
 
@@ -18,33 +18,6 @@ const int middleOfBlinkTime = 75;
 const int waitingTimeMS = 750;
 
 Servo dumpingServo; // the servo motor object
-
-// Starts moving the motor forward at given speed (must be positive value)
-// If no speed given, defaults to 100%
-void movementForward(float speed=1) {
-    analogWrite(in1A, speed);
-    analogWrite(in2A, LOW);
-}
-
-// Starts moving the motor reverse at given speed (must be positive value)
-// If no speed given, defaults to 100%
-void movementReverse(float speed=1) {
-    analogWrite(in1A, LOW);
-    analogWrite(in2A, speed);
-}
-
-// Stops powering the motors, alowing the wheelchair to roll to a stop
-void movementCoast() {
-    digitalWrite(in1A, LOW);
-    digitalWrite(in2A, LOW);
-}
-
-// Starts braking the motor at given amount (must be positive value)
-// If no amount given, defaults to 100%
-void movementBrake(float speed=1) {
-    analogWrite(in1A, speed);
-    analogWrite(in2A, speed);
-}
 
 void setup() {
     Serial.begin(9600);
@@ -58,14 +31,48 @@ void setup() {
     pinMode(in2A, OUTPUT);
 }
 
+// Starts moving the motor forward at given speed (must be positive value)
+void movementForward(int speed) {
+    digitalWrite(in1A, HIGH);
+    digitalWrite(in2A, LOW);
+    analogWrite(enA, speed);
+    Serial.print("movementForward ");
+    Serial.print(speed);
+    Serial.print("\n");
+}
+
+// Starts moving the motor reverse at given speed (must be positive value)
+void movementReverse(double speed) {
+    digitalWrite(in1A, LOW);
+    digitalWrite(in2A, HIGH);
+    analogWrite(enA, speed);
+    Serial.print("movementReverse ");
+    Serial.print(speed);
+    Serial.print("\n");
+}
+
+// Stops powering the motors, alowing the wheelchair to roll to a stop
+void movementCoast() {
+    digitalWrite(in1A, LOW);
+    digitalWrite(in2A, LOW);
+    digitalWrite(enA, LOW);
+    Serial.print("movemnetCoast\n");
+}
+
+// Starts braking the motor at given amount (must be positive value)
+void movementBrake(int speed) {
+    analogWrite(in1A, HIGH);
+    analogWrite(in2A, HIGH);
+    analogWrite(enA, speed);
+    Serial.print("movementCoast\n");
+}
+
 void testMotorMovement() {
-    movementForward(0.5);
-    delay(5*SECONDS);
-    movementBrake(1);
+    Serial.print("testMotorMovement\n");
+    movementForward(100);
     delay(1*SECONDS);
-    movementForward();
-    delay(2.5*SECONDS);
-    movementCoast();
+    movementReverse(10);
+    delay(1*SECONDS);
 }
 
 void testSoundControl() {
@@ -110,5 +117,5 @@ void flashingBeacons() {
 }
 
 void loop() {
-    flashingBeacons();
+    testMotorMovement();
 }
