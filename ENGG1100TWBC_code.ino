@@ -120,7 +120,9 @@ void flashingBeacons() {
 
 void loop() {
     // testMotorMovement();
+    testDumpingServo();
 
+/*
   // spin the motor in one direction
   digitalWrite(in1A, HIGH);
   digitalWrite(in2A, LOW);
@@ -129,11 +131,11 @@ void loop() {
   delay(1500); // run for 1500ms
 
   // stop the motor
-  digitalWrite(in1A, LOW);
-  digitalWrite(in2A, LOW);
-  Serial.println("Stopped"); // print status message to serial monitor
+//   digitalWrite(in1A, LOW);
+//   digitalWrite(in2A, LOW);
+//   Serial.println("Stopped"); // print status message to serial monitor
 
-  delay(1500); // wait for 1500ms
+//   delay(1500); // wait for 1500ms
 
   // spin the motor in the other direction
   digitalWrite(in1A, LOW);
@@ -148,6 +150,6 @@ void loop() {
   Serial.println("Stopped"); // print status message to serial monitor
 
   delay(1500); // wait for 1500ms
-    */
+    //*/
 
 }
