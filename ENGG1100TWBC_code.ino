@@ -2,10 +2,10 @@
 
 // enA, in1A, in2A are for motor movement
 #define enA 9
-#define in1A 2
-#define in2A 3
+#define in1A 5
+#define in2A 6
 // ECHO is for ultrasonic sensor (not yet implementd, will be on final design)
-#define ECHO_PIN 6
+#define ECHO_PIN 8
 #define SOUND_PIN 7
 // Servo control
 #define SERVO_PIN 10
@@ -71,9 +71,9 @@ void movementBrake(int speed) {
 void testMotorMovement() {
     Serial.print("testMotorMovement\n");
     movementForward(1);
-    delay(1*SECONDS);
+    delay(2*SECONDS);
     movementReverse(1);
-    delay(1*SECONDS);
+    delay(2*SECONDS);
 
 }
 
@@ -119,8 +119,8 @@ void flashingBeacons() {
 }
 
 void loop() {
-    // testMotorMovement();
-    testDumpingServo();
+    testMotorMovement();
+    // testDumpingServo();
 
 /*
   // spin the motor in one direction
