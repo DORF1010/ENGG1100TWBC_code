@@ -1,13 +1,14 @@
 #include <Servo.h>
 
-// enA, in1A, in2A are for motor movement and custom motor controller
+// enA, in1A, in2A are for motor movement
 #define enA 9
 #define in1A 2
 #define in2A 3
-// ECns are for ultrasonic sensor (not yet implementd, will be on final design)
+// ECHO is for ultrasonic sensor (not yet implementd, will be on final design)
 #define ECHO_PIN 6
 #define SOUND_PIN 7
-#define SERVO_PIN 9
+// Servo control
+#define SERVO_PIN 10
 // LED's
 #define LED2_PIN 12
 #define LED1_PIN 13
@@ -21,31 +22,31 @@ Servo dumpingServo; // the servo motor object
 
 void setup() {
     Serial.begin(9600);
-    pinMode(LED1_PIN, OUTPUT);
-    pinMode(LED2_PIN, OUTPUT);
+    // pinMode(LED1_PIN, OUTPUT);
+    // pinMode(LED2_PIN, OUTPUT);
     dumpingServo.attach(SERVO_PIN);
-    pinMode(SOUND_PIN, OUTPUT);
-    pinMode(ECHO_PIN, INPUT);
+    // pinMode(SOUND_PIN, OUTPUT);
+    // pinMode(ECHO_PIN, INPUT);
     pinMode(enA, OUTPUT);
     pinMode(in1A, OUTPUT);
     pinMode(in2A, OUTPUT);
+
+    digitalWrite(enA, HIGH);
 }
 
 // Starts moving the motor forward at given speed (must be positive value)
-void movementForward(int speed) {
+void movementForward(float speed) {
     digitalWrite(in1A, HIGH);
     digitalWrite(in2A, LOW);
-    analogWrite(enA, speed);
     Serial.print("movementForward ");
     Serial.print(speed);
     Serial.print("\n");
 }
 
 // Starts moving the motor reverse at given speed (must be positive value)
-void movementReverse(double speed) {
+void movementReverse(float speed) {
     digitalWrite(in1A, LOW);
     digitalWrite(in2A, HIGH);
-    analogWrite(enA, speed);
     Serial.print("movementReverse ");
     Serial.print(speed);
     Serial.print("\n");
@@ -69,10 +70,11 @@ void movementBrake(int speed) {
 
 void testMotorMovement() {
     Serial.print("testMotorMovement\n");
-    movementForward(100);
+    movementForward(1);
     delay(1*SECONDS);
-    movementReverse(10);
+    movementReverse(1);
     delay(1*SECONDS);
+
 }
 
 void testSoundControl() {
@@ -117,5 +119,35 @@ void flashingBeacons() {
 }
 
 void loop() {
-    testMotorMovement();
+    // testMotorMovement();
+
+  // spin the motor in one direction
+  digitalWrite(in1A, HIGH);
+  digitalWrite(in2A, LOW);
+  Serial.println("Spinning one direction"); // print status message to serial monitor
+
+  delay(1500); // run for 1500ms
+
+  // stop the motor
+  digitalWrite(in1A, LOW);
+  digitalWrite(in2A, LOW);
+  Serial.println("Stopped"); // print status message to serial monitor
+
+  delay(1500); // wait for 1500ms
+
+  // spin the motor in the other direction
+  digitalWrite(in1A, LOW);
+  digitalWrite(in2A, HIGH);
+  Serial.println("Spinning the other direction"); // print status message to serial monitor
+
+  delay(1500); // run for 1500ms
+
+  // stop the motor
+  digitalWrite(in1A, LOW);
+  digitalWrite(in2A, LOW);
+  Serial.println("Stopped"); // print status message to serial monitor
+
+  delay(1500); // wait for 1500ms
+
+
 }
