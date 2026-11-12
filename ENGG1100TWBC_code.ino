@@ -21,6 +21,7 @@
 #define waitingTimeMS 750
 #define RECYCLING_RUN_STOP_DISTANCE 20
 #define RECYCLING_RUN_STOP_DISTANCE_TOLERANCE 1
+#define SPEED_RUN_STOP_DISTANCE 60
 
 Servo dumpingServo; // the servo motor object
 
@@ -170,6 +171,7 @@ void flashingBeacons() {
     delay(middleOfBlinkTime);
     flash();
 }
+
 void recyclingRun() {
     movementForward(1);
     delay(5*SECONDS); // get most of the way to the recycling bin
@@ -186,6 +188,16 @@ void recyclingRun() {
             break;
         }
     }
+}
+
+void speedRun() {
+    movementForward(1);
+    while (getDistance()>SPEED_RUN_STOP_DISTANCE) {
+        movementForward(1);
+    }
+    movementReverse(1);
+    delay(5*SECONDS);
+    movementBrake(1);
 }
 
 void loop() {
