@@ -17,8 +17,10 @@
 // Other utilities/settings
 #define DUMP_MAX_ANGLE 170
 #define DUMP_MIN_ANGLE 45
-#define middleOfBlinkTime = 75
-#define waitingTimeMS = 750
+#define middleOfBlinkTime 75
+#define waitingTimeMS 750
+#define RECYCLING_RUN_STOP_DISTANCE 20
+#define RECYCLING_RUN_STOP_DISTANCE_TOLERANCE 1
 
 Servo dumpingServo; // the servo motor object
 
@@ -170,9 +172,19 @@ void flashingBeacons() {
 }
 void recyclingRun() {
     movementForward(1);
-    while (getDistance()>0) {
+    delay(5*SECONDS); // get most of the way to the recycling bin
+    while (1) {
         Serial.write(getDistance());
-        continue;
+        if (getDistance()>RECYCLING_RUN_STOP_DISTANCE-RECYCLING_RUN_STOP_DISTANCE_TOLERANCE) {
+            movementForward(1);
+        }
+        else if (getDistance()<RECYCLING_RUN_STOP_DISTANCE+RECYCLING_RUN_STOP_DISTANCE_TOLERANCE) {
+            movementReverse(1);
+        }
+        else {
+            Serial.write("In tolerance of distance")
+            break;
+        }
     }
 }
 
