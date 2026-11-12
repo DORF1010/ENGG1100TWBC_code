@@ -14,9 +14,11 @@
 #define LED1_PIN 13
 // Implroves redability of delay(); (see uses)
 #define SECONDS 1000
-
-const int middleOfBlinkTime = 75;
-const int waitingTimeMS = 750;
+// Other utilities/settings
+#define DUMP_MAX_ANGLE 170
+#define DUMP_MIN_ANGLE 45
+#define middleOfBlinkTime = 75
+#define waitingTimeMS = 750
 
 Servo dumpingServo; // the servo motor object
 
@@ -68,12 +70,54 @@ void movementBrake(int speed) {
     Serial.print("movementCoast\n");
 }
 
+void dumpingUP() {
+    dumpingServo.analogWrite(DUMP_MAX_ANGLE);
+}
+
+void dumpingDOWN() {
+    dumpingServo.analogWrite(DUMP_MIN_ANGLE)''
+}
+
+void dumpingCustom(float percent) {
+    // calculate the difference between min and max dumping servo angle, and add percent amount of that to the min angle and send to the servo
+    dumpingServo.analogWrite(DUMP_MIN_ANGLE+(DUMP_MAX_ANGLE-DUMP_MIN_ANGLE)*percent);
+}
+
 void testMotorMovement() {
     Serial.print("testMotorMovement\n");
-    movementForward(1);
+    /*movementForward(1);
     delay(2*SECONDS);
     movementReverse(1);
-    delay(2*SECONDS);
+    delay(2*SECONDS);*/
+    
+
+    // spin the motor in one direction
+    digitalWrite(in1A, HIGH);
+    digitalWrite(in2A, LOW);
+    Serial.println("Spinning one direction"); // print status message to serial monitor
+
+    delay(1500); // run for 1500ms
+
+    //   stop the motor
+    digitalWrite(in1A, LOW);
+    digitalWrite(in2A, LOW);
+    Serial.println("Stopped"); // print status message to serial monitor
+  
+    delay(1500); // wait for 1500ms
+
+    // spin the motor in the other direction
+    digitalWrite(in1A, LOW);
+    digitalWrite(in2A, HIGH);
+    Serial.println("Spinning the other direction"); // print status message to serial monitor
+
+    delay(1500); // run for 1500ms
+
+    // stop the motor
+    digitalWrite(in1A, LOW);
+    digitalWrite(in2A, LOW);
+    Serial.println("Stopped"); // print status message to serial monitor
+  
+    delay(1500); // wait for 1500ms
 
 }
 
@@ -97,9 +141,9 @@ void testSoundControl() {
 }
 
 void testDumpingServo() {
-    dumpingServo.write(45);
+    dumpingServo.write(DUMP_MIN_ANGLE);
     delay(waitingTimeMS);
-    dumpingServo.write(170);
+    dumpingServo.write(DUMP_MIN_ANGLE);
     delay(waitingTimeMS);
 }
 
@@ -117,39 +161,13 @@ void flashingBeacons() {
     delay(middleOfBlinkTime);
     flash();
 }
+void recyclingRun() {
+
+}
 
 void loop() {
-    testMotorMovement();
+    // testMotorMovement();
     // testDumpingServo();
 
-/*
-  // spin the motor in one direction
-  digitalWrite(in1A, HIGH);
-  digitalWrite(in2A, LOW);
-  Serial.println("Spinning one direction"); // print status message to serial monitor
-
-  delay(1500); // run for 1500ms
-
-  // stop the motor
-//   digitalWrite(in1A, LOW);
-//   digitalWrite(in2A, LOW);
-//   Serial.println("Stopped"); // print status message to serial monitor
-
-//   delay(1500); // wait for 1500ms
-
-  // spin the motor in the other direction
-  digitalWrite(in1A, LOW);
-  digitalWrite(in2A, HIGH);
-  Serial.println("Spinning the other direction"); // print status message to serial monitor
-
-  delay(1500); // run for 1500ms
-
-  // stop the motor
-  digitalWrite(in1A, LOW);
-  digitalWrite(in2A, LOW);
-  Serial.println("Stopped"); // print status message to serial monitor
-
-  delay(1500); // wait for 1500ms
-    //*/
 
 }
