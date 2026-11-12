@@ -98,7 +98,7 @@ void testMotorMovement() {
 
     delay(1500); // run for 1500ms
 
-    //   stop the motor
+    // stop the motor
     digitalWrite(in1A, LOW);
     digitalWrite(in2A, LOW);
     Serial.println("Stopped"); // print status message to serial monitor
@@ -141,9 +141,9 @@ void testSoundControl() {
 }
 
 void testDumpingServo() {
-    dumpingServo.write(DUMP_MIN_ANGLE);
+    dumpingUP();
     delay(waitingTimeMS);
-    dumpingServo.write(DUMP_MIN_ANGLE);
+    dumpingDOWN();
     delay(waitingTimeMS);
 }
 
@@ -168,6 +168,5 @@ void recyclingRun() {
 void loop() {
     // testMotorMovement();
     // testDumpingServo();
-
-
+    
 }
