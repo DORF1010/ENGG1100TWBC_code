@@ -33,7 +33,7 @@ void setup() {
     pinMode(in1A, OUTPUT);
     pinMode(in2A, OUTPUT);
 
-    digitalWrite(enA, HIGH);
+    digitalWrite(enA, HIGH); // turn on the motor/motor controller (this dosen't actually start spinning it yet, thats digitalWrite(in1A/2A, HIGH))
 }
 
 // Starts moving the motor forward at given speed (must be positive value)
@@ -50,7 +50,6 @@ void movementReverse(float speed) {
     digitalWrite(in1A, LOW);
     digitalWrite(in2A, HIGH);
     Serial.print("movementReverse ");
-    Serial.print(speed);
     Serial.print("\n");
 }
 
@@ -58,7 +57,6 @@ void movementReverse(float speed) {
 void movementCoast() {
     digitalWrite(in1A, LOW);
     digitalWrite(in2A, LOW);
-    digitalWrite(enA, LOW);
     Serial.print("movemnetCoast\n");
 }
 
@@ -66,7 +64,6 @@ void movementCoast() {
 void movementBrake(int speed) {
     analogWrite(in1A, HIGH);
     analogWrite(in2A, HIGH);
-    analogWrite(enA, speed);
     Serial.print("movementCoast\n");
 }
 
@@ -139,6 +136,16 @@ void testSoundControl() {
     Serial.print(distance);
     Serial.print("cm\n");
 }
+double getDistance() {
+    digitalWrite(SOUND_PIN, LOW);
+    delayMicroseconds(2);
+    digitalWrite(SOUND_PIN, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(SOUND_PIN, LOW);
+    double duration = pulseIn(ECHO_PIN, HIGH);
+    double distance = duration * 0.024/2;
+    return distance;
+}
 
 void testDumpingServo() {
     dumpingUP();
@@ -162,11 +169,15 @@ void flashingBeacons() {
     flash();
 }
 void recyclingRun() {
-
+    movementForward(1);
+    while (getDistance()>0) {
+        Serial.write(getDistance());
+        continue;
+    }
 }
 
 void loop() {
     // testMotorMovement();
     // testDumpingServo();
-    
+    Serial.write(getDistance());
 }
