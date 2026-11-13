@@ -71,16 +71,16 @@ void movementBrake(int speed) {
 }
 
 void dumpingUP() {
-    dumpingServo.analogWrite(DUMP_MAX_ANGLE);
+    // dumpingServo.analogWrite(DUMP_MAX_ANGLE);
 }
 
 void dumpingDOWN() {
-    dumpingServo.analogWrite(DUMP_MIN_ANGLE)''
+    // dumpingServo.analogWrite(DUMP_MIN_ANGLE);
 }
 
 void dumpingCustom(float percent) {
     // calculate the difference between min and max dumping servo angle, and add percent amount of that to the min angle and send to the servo
-    dumpingServo.analogWrite(DUMP_MIN_ANGLE+(DUMP_MAX_ANGLE-DUMP_MIN_ANGLE)*percent);
+    // dumpingServo.analogWrite(DUMP_MIN_ANGLE+(DUMP_MAX_ANGLE-DUMP_MIN_ANGLE)*percent);
 }
 
 void testMotorMovement() {
@@ -176,7 +176,7 @@ void recyclingRun() {
     movementForward(1);
     delay(5*SECONDS); // get most of the way to the recycling bin
     while (1) {
-        Serial.write(getDistance());
+        // Serial.write(getDistance());
         if (getDistance()>RECYCLING_RUN_STOP_DISTANCE-RECYCLING_RUN_STOP_DISTANCE_TOLERANCE) {
             movementForward(1);
         }
@@ -184,7 +184,7 @@ void recyclingRun() {
             movementReverse(1);
         }
         else {
-            Serial.write("In tolerance of distance")
+            Serial.write("In tolerance of distance");
             break;
         }
     }
@@ -203,5 +203,6 @@ void speedRun() {
 void loop() {
     // testMotorMovement();
     // testDumpingServo();
-    Serial.write(getDistance());
+    flashingBeacons();
+    // Serial.write(getDistance());
 }
