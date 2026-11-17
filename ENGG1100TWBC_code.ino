@@ -6,9 +6,9 @@
 #define in2A 6
 // ECHO is for ultrasonic sensor (not yet implementd, will be on final design)
 #define ECHO_PIN 8
-#define SOUND_PIN 7
+#define SOUND_PIN 10
 // Servo control
-#define SERVO_PIN 10
+#define SERVO_PIN 11
 // LED's
 #define LED2_PIN 12
 #define LED1_PIN 13
@@ -27,11 +27,12 @@ Servo dumpingServo; // the servo motor object
 
 void setup() {
     Serial.begin(9600);
+    Serial.print("Setup\n");
     // pinMode(LED1_PIN, OUTPUT);
     // pinMode(LED2_PIN, OUTPUT);
     dumpingServo.attach(SERVO_PIN);
-    // pinMode(SOUND_PIN, OUTPUT);
-    // pinMode(ECHO_PIN, INPUT);
+    pinMode(SOUND_PIN, OUTPUT);
+    pinMode(ECHO_PIN, INPUT);
     pinMode(enA, OUTPUT);
     pinMode(in1A, OUTPUT);
     pinMode(in2A, OUTPUT);
@@ -203,6 +204,7 @@ void speedRun() {
 void loop() {
     // testMotorMovement();
     // testDumpingServo();
-    flashingBeacons();
+    // flashingBeacons();
+    testSoundControl();
     // Serial.write(getDistance());
 }
