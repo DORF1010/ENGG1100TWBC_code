@@ -132,13 +132,16 @@ void testSoundControl() {
     delayMicroseconds(10);
     digitalWrite(SOUND_PIN, LOW);
     // Reads the ECHO_PIN, returns the sound wave travel time in microseconds into variable duration
-    int duration = pulseIn(ECHO_PIN, HIGH);
+    double duration = pulseIn(ECHO_PIN, HIGH);
     // Multiply distance by speed of sound (0.034) and divide by 2 (For pulse to go and come back)
-    int distance = duration * 0.034 / 2;
+    double distance = duration * 0.034 / 2;
     // Output the distance to the Serial Monitor
     Serial.print("Distance = ");
     Serial.print(distance);
     Serial.print("cm\n");
+    Serial.print("Duration = ");
+    Serial.print(duration);
+    Serial.print("units\n");
 }
 double getDistance() {
     digitalWrite(SOUND_PIN, LOW);
