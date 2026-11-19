@@ -12,10 +12,10 @@
 // LED's
 #define LED2_PIN 12
 #define LED1_PIN 13
-// Implroves redability of delay(); (see uses)
+// Improves redability of delay(); (see uses)
 #define SECONDS 1000
 // Other utilities/settings
-#define DUMP_MAX_ANGLE 50
+#define DUMP_MAX_ANGLE 80
 #define DUMP_MIN_ANGLE 45
 #define middleOfBlinkTime 75
 #define waitingTimeMS 750
@@ -155,10 +155,10 @@ double getDistance() {
 }
 
 void testDumpingServo() {
-    dumpingServo.write(DUMP_MAX_ANGLE);
-    delay(5*SECONDS);
-    dumpingServo.write(DUMP_MIN_ANGLE);
-    delay(5*SECONDS);
+    dumpingUP();
+    delay(1*SECONDS);
+    dumpingDOWN();
+    delay(1*SECONDS);
 }
 
 void flash() {
