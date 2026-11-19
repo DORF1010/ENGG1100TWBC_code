@@ -15,7 +15,7 @@
 // Implroves redability of delay(); (see uses)
 #define SECONDS 1000
 // Other utilities/settings
-#define DUMP_MAX_ANGLE 170
+#define DUMP_MAX_ANGLE 50
 #define DUMP_MIN_ANGLE 45
 #define middleOfBlinkTime 75
 #define waitingTimeMS 750
@@ -72,16 +72,16 @@ void movementBrake(int speed) {
 }
 
 void dumpingUP() {
-    // dumpingServo.analogWrite(DUMP_MAX_ANGLE);
+    dumpingServo.write(DUMP_MAX_ANGLE);
 }
 
 void dumpingDOWN() {
-    // dumpingServo.analogWrite(DUMP_MIN_ANGLE);
+    dumpingServo.write(DUMP_MIN_ANGLE);
 }
 
 void dumpingCustom(float percent) {
     // calculate the difference between min and max dumping servo angle, and add percent amount of that to the min angle and send to the servo
-    // dumpingServo.analogWrite(DUMP_MIN_ANGLE+(DUMP_MAX_ANGLE-DUMP_MIN_ANGLE)*percent);
+    dumpingServo.write(DUMP_MIN_ANGLE+(DUMP_MAX_ANGLE-DUMP_MIN_ANGLE)*percent);
 }
 
 void testMotorMovement() {
@@ -155,10 +155,10 @@ double getDistance() {
 }
 
 void testDumpingServo() {
-    dumpingUP();
-    delay(waitingTimeMS);
-    dumpingDOWN();
-    delay(waitingTimeMS);
+    dumpingServo.write(DUMP_MAX_ANGLE);
+    delay(5*SECONDS);
+    dumpingServo.write(DUMP_MIN_ANGLE);
+    delay(5*SECONDS);
 }
 
 void flash() {
@@ -206,8 +206,8 @@ void speedRun() {
 
 void loop() {
     // testMotorMovement();
-    // testDumpingServo();
+    testDumpingServo();
     // flashingBeacons();
-    testSoundControl();
+    // testSoundControl();
     // Serial.write(getDistance());
 }
