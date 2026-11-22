@@ -206,7 +206,7 @@ void speedRun() {
 
 void loop() {
     // testMotorMovement();
-    testDumpingServo();
+    // testDumpingServo();
     // flashingBeacons();
     // testSoundControl();
     // Serial.write(getDistance());
