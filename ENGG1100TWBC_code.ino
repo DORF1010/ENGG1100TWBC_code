@@ -1,5 +1,9 @@
 #include <Servo.h>
 
+#define TESTING 1
+#define SPEEDRUN 0
+#define RECYCLINGRUN 0
+
 // enA, in1A, in2A are for motor movement
 #define enA 9
 #define in1A 5
@@ -15,8 +19,8 @@
 // Improves redability of delay(); (see uses)
 #define SECONDS 1000
 // Other utilities/settings
-#define DUMP_MAX_ANGLE 80
-#define DUMP_MIN_ANGLE 45
+#define DUMP_MIN_ANGLE 90
+#define DUMP_MAX_ANGLE 0
 #define middleOfBlinkTime 75
 #define waitingTimeMS 750
 #define RECYCLING_RUN_STOP_DISTANCE 20
@@ -38,6 +42,9 @@ void setup() {
     pinMode(in2A, OUTPUT);
 
     digitalWrite(enA, HIGH); // turn on the motor/motor controller (this dosen't actually start spinning it yet, thats digitalWrite(in1A/2A, HIGH))
+
+    if (SPEEDRUN) {speedRun();}
+    if (RECYCLINGRUN) {recyclingRun();}
 }
 
 // Starts moving the motor forward at given speed (must be positive value)
@@ -86,12 +93,14 @@ void dumpingCustom(float percent) {
 
 void testMotorMovement() {
     Serial.print("testMotorMovement\n");
-    /*movementForward(1);
+    // /*
+    movementForward(1);
     delay(2*SECONDS);
     movementReverse(1);
-    delay(2*SECONDS);*/
+    delay(2*SECONDS);
+    //*/
     
-
+    /*
     // spin the motor in one direction
     digitalWrite(in1A, HIGH);
     digitalWrite(in2A, LOW);
@@ -117,9 +126,9 @@ void testMotorMovement() {
     digitalWrite(in1A, LOW);
     digitalWrite(in2A, LOW);
     Serial.println("Stopped"); // print status message to serial monitor
-  
-    delay(1500); // wait for 1500ms
 
+    delay(1500); // wait for 1500ms
+    // */
 }
 
 void testSoundControl() {
@@ -158,7 +167,7 @@ void testDumpingServo() {
     dumpingUP();
     delay(1*SECONDS);
     dumpingDOWN();
-    delay(1*SECONDS);
+    delay(5*SECONDS);
 }
 
 void flash() {
@@ -195,19 +204,21 @@ void recyclingRun() {
 }
 
 void speedRun() {
+    delay(5*SECONDS);
     movementForward(1);
-    while (getDistance()>SPEED_RUN_STOP_DISTANCE) {
-        movementForward(1);
-    }
+    delay(5*SECONDS);
     movementReverse(1);
     delay(5*SECONDS);
     movementBrake(1);
 }
 
 void loop() {
-    // testMotorMovement();
-    // testDumpingServo();
-    // flashingBeacons();
-    // testSoundControl();
-    // Serial.write(getDistance());
+    if (TESTING) {
+        // testMotorMovement();
+        testDumpingServo();
+        // testSoundControl();
+        // Serial.write(getDistance());
+    }
+    if (SPEEDRUN) {flashingBeacons();}
+    if (RECYCLINGRUN) {flashingBeacons();}
 }
