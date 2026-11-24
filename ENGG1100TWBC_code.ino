@@ -201,11 +201,15 @@ void recyclingRun() {
 }
 
 void speedRun() {
-    delay(5*SECONDS);
+    double startWait = 2*SECONDS;
+    double goingTime = 10*SECONDS;
+    delay(startWait); // wait to let go of TBWC
     movementForward(1);
-    delay(5*SECONDS);
+    delay(goingTime);
+    movementCoast();
+    delay(1*SECONDS);
     movementReverse(1);
-    delay(5*SECONDS);
+    delay(goingTime);
     movementBrake(1);
 }
 
