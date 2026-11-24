@@ -165,9 +165,6 @@ double getDistance() {
 
 void testDumpingServo() {
     dumpingUP();
-    delay(1*SECONDS);
-    dumpingDOWN();
-    delay(5*SECONDS);
 }
 
 void flash() {
