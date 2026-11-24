@@ -1,7 +1,7 @@
 #include <Servo.h>
 
-#define TESTING 1
-#define SPEEDRUN 0
+#define TESTING 0
+#define SPEEDRUN 1
 #define RECYCLINGRUN 0
 
 // enA, in1A, in2A are for motor movement
@@ -201,11 +201,15 @@ void recyclingRun() {
 }
 
 void speedRun() {
-    delay(5*SECONDS);
+    double startWait = 2*SECONDS;
+    double goingTime = 10*SECONDS;
+    delay(startWait); // wait to let go of TBWC
     movementForward(1);
-    delay(5*SECONDS);
+    delay(goingTime);
+    movementCoast();
+    delay(1*SECONDS);
     movementReverse(1);
-    delay(5*SECONDS);
+    delay(goingTime);
     movementBrake(1);
 }
 
