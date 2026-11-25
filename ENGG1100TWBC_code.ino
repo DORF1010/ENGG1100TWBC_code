@@ -182,26 +182,19 @@ void flashingBeacons() {
 }
 
 void recyclingRun() {
+    double startWait = 2*SECONDS;
+    double goingTime = 4.5*SECONDS;
+    delay(startWait); // wait to let go of TBWC
     movementForward(1);
-    delay(5*SECONDS); // get most of the way to the recycling bin
-    while (1) {
-        // Serial.write(getDistance());
-        if (getDistance()>RECYCLING_RUN_STOP_DISTANCE-RECYCLING_RUN_STOP_DISTANCE_TOLERANCE) {
-            movementForward(1);
-        }
-        else if (getDistance()<RECYCLING_RUN_STOP_DISTANCE+RECYCLING_RUN_STOP_DISTANCE_TOLERANCE) {
-            movementReverse(1);
-        }
-        else {
-            Serial.write("In tolerance of distance");
-            break;
-        }
-    }
+    delay(goingTime);
+    movementCoast();
+    delay(1*SECONDS);
+    dumpingUP();
 }
 
 void speedRun() {
     double startWait = 2*SECONDS;
-    double goingTime = 5*SECONDS;
+    double goingTime = 4.5*SECONDS;
     delay(startWait); // wait to let go of TBWC
     movementForward(1);
     delay(goingTime);
