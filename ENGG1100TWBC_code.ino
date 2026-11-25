@@ -1,8 +1,8 @@
 #include <Servo.h>
 
 #define TESTING 0
-#define SPEEDRUN 1
-#define RECYCLINGRUN 0
+#define SPEEDRUN 0
+#define RECYCLINGRUN 1
 
 // enA, in1A, in2A are for motor movement
 #define enA 9
@@ -183,12 +183,12 @@ void flashingBeacons() {
 
 void recyclingRun() {
     double startWait = 2*SECONDS;
-    double goingTime = 4.5*SECONDS;
+    double goingTime = 4*SECONDS;
     delay(startWait); // wait to let go of TBWC
     movementForward(1);
     delay(goingTime);
     movementCoast();
-    delay(1*SECONDS);
+    delay(2*SECONDS);
     dumpingUP();
 }
 
