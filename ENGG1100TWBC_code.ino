@@ -194,13 +194,14 @@ void recyclingRun() {
 
 void speedRun() {
     double startWait = 2*SECONDS;
-    double goingTime = 4.5*SECONDS;
+    double goingTime = 5*SECONDS;
     delay(startWait); // wait to let go of TBWC
     movementForward(1);
     delay(goingTime);
     movementCoast();
     delay(1*SECONDS);
     movementReverse(1);
+    delay(2.5*SECONDS); // extra time for braking and start going other direction
     delay(goingTime);
     movementBrake(1);
 }
