@@ -40,8 +40,7 @@ void setup() {
     pinMode(enA, OUTPUT);
     pinMode(in1A, OUTPUT);
     pinMode(in2A, OUTPUT);
-
-    digitalWrite(enA, HIGH); // turn on the motor/motor controller (this dosen't actually start spinning it yet, thats digitalWrite(in1A/2A, HIGH))
+    analogWrite(enA, 255);
 
     if (SPEEDRUN) {speedRun();}
     if (RECYCLINGRUN) {recyclingRun();}
@@ -202,7 +201,7 @@ void recyclingRun() {
 
 void speedRun() {
     double startWait = 2*SECONDS;
-    double goingTime = 10*SECONDS;
+    double goingTime = 5*SECONDS;
     delay(startWait); // wait to let go of TBWC
     movementForward(1);
     delay(goingTime);
