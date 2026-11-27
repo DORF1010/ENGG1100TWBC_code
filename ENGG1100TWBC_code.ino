@@ -1,8 +1,10 @@
 #include <Servo.h>
 
-#define TESTING 0
-#define SPEEDRUN 0
-#define RECYCLINGRUN 1
+// The folwoing control what section of code is active. This makes it easy to switch during competition when there is not much extra time.
+// 0 means disabled, 1 means enabled
+#define TESTING 0       // activates testing functions for debugging problems
+#define SPEEDRUN 0      // activates the section for the speedrun code
+#define RECYCLINGRUN 1  // activates the section for the recycling delivery code
 
 // enA, in1A, in2A are for motor movement
 #define enA 9
@@ -181,6 +183,7 @@ void flashingBeacons() {
     flash();
 }
 
+// one function for the recycling delivery code. it's all in one place, easy to see and change
 void recyclingRun() {
     double startWait = 2*SECONDS;
     double goingTime = 4*SECONDS;
@@ -192,6 +195,7 @@ void recyclingRun() {
     dumpingUP();
 }
 
+// one function for the speedrun code. it's all in one place, easy to see and change
 void speedRun() {
     double startWait = 2*SECONDS;
     double goingTime = 4.25 * SECONDS;
