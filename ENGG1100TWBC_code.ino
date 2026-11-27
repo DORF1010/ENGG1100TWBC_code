@@ -1,6 +1,6 @@
 #include <Servo.h>
 
-// The folwoing control what section of code is active. This makes it easy to switch during competition when there is not much extra time.
+// The following control what section of code is active. This makes it easy to switch during competition when there is not much extra time.
 // 0 means disabled, 1 means enabled
 #define TESTING 0       // activates testing functions for debugging problems
 #define SPEEDRUN 0      // activates the section for the speedrun code
@@ -18,7 +18,7 @@
 // LED's
 #define LED2_PIN 12
 #define LED1_PIN 13
-// Improves redability of delay(); (see uses)
+// Improves readability of delay(); (see uses)
 #define SECONDS 1000
 // Other utilities/settings
 #define DUMP_MIN_ANGLE 90
@@ -65,7 +65,7 @@ void movementReverse(float speed) {
     Serial.print("\n");
 }
 
-// Stops powering the motors, alowing the wheelchair to roll to a stop
+// Stops powering the motors, allowing the wheelchair to roll to a stop
 void movementCoast() {
     digitalWrite(in1A, LOW);
     digitalWrite(in2A, LOW);
