@@ -10,9 +10,6 @@
 #define enA 9
 #define in1A 5
 #define in2A 6
-// ECHO is for ultrasonic sensor (not yet implementd, will be on final design)
-#define ECHO_PIN 8
-#define SOUND_PIN 10
 // Servo control
 #define SERVO_PIN 11
 // LED's
@@ -37,8 +34,6 @@ void setup() {
     // pinMode(LED1_PIN, OUTPUT);
     // pinMode(LED2_PIN, OUTPUT);
     dumpingServo.attach(SERVO_PIN);
-    pinMode(SOUND_PIN, OUTPUT);
-    pinMode(ECHO_PIN, INPUT);
     pinMode(enA, OUTPUT);
     pinMode(in1A, OUTPUT);
     pinMode(in2A, OUTPUT);
@@ -130,38 +125,6 @@ void testMotorMovement() {
 
     delay(1500); // wait for 1500ms
     // */
-}
-
-void testSoundControl() {
-    // the following section code is a copy-paste from 'Sensor & DC Motor Guide' section 3.1 sample ultrasonic sensor Arduino code with a few minor edits
-    // Clears the SOUND_PIN condition as a precaution
-    digitalWrite(SOUND_PIN, LOW);
-    delayMicroseconds(2);
-    // Sets the SOUND_PIN HIGH (ACTIVE) for 10 microseconds, then turn it off
-    digitalWrite(SOUND_PIN, HIGH);
-    delayMicroseconds(10);
-    digitalWrite(SOUND_PIN, LOW);
-    // Reads the ECHO_PIN, returns the sound wave travel time in microseconds into variable duration
-    double duration = pulseIn(ECHO_PIN, HIGH);
-    // Multiply distance by speed of sound (0.034) and divide by 2 (For pulse to go and come back)
-    double distance = duration * 0.034 / 2;
-    // Output the distance to the Serial Monitor
-    Serial.print("Distance = ");
-    Serial.print(distance);
-    Serial.print("cm\n");
-    Serial.print("Duration = ");
-    Serial.print(duration);
-    Serial.print("units\n");
-}
-double getDistance() {
-    digitalWrite(SOUND_PIN, LOW);
-    delayMicroseconds(2);
-    digitalWrite(SOUND_PIN, HIGH);
-    delayMicroseconds(10);
-    digitalWrite(SOUND_PIN, LOW);
-    double duration = pulseIn(ECHO_PIN, HIGH);
-    double distance = duration * 0.024/2;
-    return distance;
 }
 
 void testDumpingServo() {
